@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="calculator">
+        <form method="POST" action="/">
+            <div class="display">
+                <input type="text" name="expression" id="screen" placeholder="Enter expression" value="{{ request.form['expression'] if request.method == 'POST' else '' }}" required>
+            </div>
+            <div class="controls">
+                <button class="clear" type="reset">C</button>
+                <button class="button equal" type="submit">=</button>
+            </div>
+        </form>
+
+        {% if result is not none %}
+            <div class="result">
+                {% if error_message %}
+                    <p class="error">{{ error_message }}</p>
+                {% else %}
+                    <p class="output">Result: {{ result }}</p>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
